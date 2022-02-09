@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
 const app = express();
-const key = "apify_api_msHjPqEbSSYIncib2t1dCMCirts07M18KHrf";
 const https = require("https");
 const schedule = require("node-schedule");
 const rule = new schedule.RecurrenceRule();
@@ -34,6 +33,9 @@ rule.tz = "Etc/UTC";
 
 const job = schedule.scheduleJob(rule, function () {
   getData();
+  fs.readFile('latestData.json',  (err, data) => {
+    covidData =  JSON.parse(data);
+ })
 });
 
 
